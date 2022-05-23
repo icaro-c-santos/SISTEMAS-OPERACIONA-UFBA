@@ -1,89 +1,134 @@
 #include <stdlib.h>
+#include <stdio.h>
 
-
-int check(int matrix[9][9], int column,int line){
+int check(int matrix[10][10], int column,int line){
     int has[10] = {0,1,2,3,4,5,6,7,8,9};
     
     for(int i=line; i<line+3; i++){
        for(int j=column; j<column+3; j++){
-        if( has[matrix[i][j]]!= -2){
-            has[matrix[i][j]] = -2;  
-        }else{
-          return false;
-        }
-        
+          if( has[matrix[i][j]]!= -2){
+              has[matrix[i][j]] = -2;  
+          }else{
+            return -1;
+          }
         } 
     }
       
-    return -1;
+    return 1;
 }
 
 
-int check_column(int matrix[9][9],int column){
+int check_column(int matrix[10][10],int column){
      int has[10] = {0,1,2,3,4,5,6,7,8,9};
-     for(int i=0; i<9; i++){
+     for(int i=0; i<10; i++){
        if( has[matrix[i][column]] != -2){
-            has[matrix[i][column]] = -2;  
+           has[matrix[i][column]] = -2;  
         }else{
-          return false;
+          return -1;
         }
    }
+   return 1;
 }
 
-int check_line(int matrix[9][9],int line){
+int check_line(int matrix[10][10],int line){
       int has[10] = {0,1,2,3,4,5,6,7,8,9};
-      for(int i=0; i<9; i++){
+      for(int i=0; i<10; i++){
        if( has[matrix[line][i]] != -2){
            has[matrix[line][i]] = -2;  
         }else{
-          return false;
+          return -1;
         }
    }
+   return 1;
+}
+
+
+void showMatriz(int matriz[10][10]){
+   for(int i=0; i<10; i++){
+      printf("\n");
+       for(int j=0; j<10; j++){
+         printf(" %d ",matriz[i][j]);
+       } 
+    }
+
 }
 
 int main() {
+
+
   
     
- 
-    int matriz [9][9];
-    for(int i=0; i<9; i++){
-       for(int j=0; j<9; j++){
-        matriz[i][j] = rand() % 10;
+    int matriz [10][10];
+    for(int i=0; i<10; i++){
+       for(int j=0; j<10; j++){
+        matriz[i][j] =  rand() % 10;
        } 
     }
-    
-      check(matriz,0,0);
-      check(matriz,0,3);
-      check(matriz,0,9);
-      check(matriz,3,0);
-      check(matriz,3,3);
-      check(matriz,3,9);
-      check(matriz,6,0);
-      check(matriz,6,3);
-      check(matriz,6,9);
-      
-      check_line(matriz,0);
-      check_line(matriz,1);
-      check_line(matriz,2);
-      check_line(matriz,3);
-      check_line(matriz,4);
-      check_line(matriz,5);
-      check_line(matriz,6);
-      check_line(matriz,7);
-      check_line(matriz,8);
-      check_line(matriz,9);
-      
-      check_column(matriz,0);
-      check_column(matriz,1);
-      check_column(matriz,2);
-      check_column(matriz,3);
-      check_column(matriz,4);
-      check_column(matriz,5);
-      check_column(matriz,6);
-      check_column(matriz,7);
-      check_column(matriz,8);
-      check_column(matriz,9);
-    
-    return 0;
 
+   matriz[0][0] = 1;
+   matriz[0][1] = 2;
+   matriz[0][2] = 3;
+   matriz[1][0] = 4;
+   matriz[1][1] = 5;
+   matriz[1][2] = 6;
+   matriz[2][0] = 7;
+   matriz[2][1] = 8;
+   matriz[2][2] = 9;
+  
+   showMatriz(matriz);
+     
+     int result [27]; 
+        
+     result[0] = check(matriz,0,0);
+     result[1] = check(matriz,0,3);
+     result[2] = check(matriz,0,6);
+     result[3] = check(matriz,3,0);
+     result[4] = check(matriz,3,3);
+     result[5] = check(matriz,3,6);
+     result[6] = check(matriz,6,0);
+     result[7] = check(matriz,6,3);
+     result[8] = check(matriz,6,6);
+
+     result[9] = check_line(matriz,0);
+     result[10] = check_line(matriz,1);
+     result[11] = check_line(matriz,2);
+     result[12] = check_line(matriz,3);
+     result[13] = check_line(matriz,4);
+     result[14] = check_line(matriz,5);
+     result[15] = check_line(matriz,6);
+     result[16] = check_line(matriz,7);
+     result[17] = check_line(matriz,8);
+     result[18] = check_line(matriz,9);
+  
+     result[19] = check_column(matriz,0);
+     result[20] = check_column(matriz,1);
+     result[21] = check_column(matriz,2);
+     result[22] = check_column(matriz,3);
+     result[23] = check_column(matriz,4);
+     result[24] = check_column(matriz,5);
+     result[25] = check_column(matriz,6);
+     result[26] = check_column(matriz,7);
+     result[27] = check_column(matriz,8);
+     result[28] = check_column(matriz,9);
+  
+     for(int i =0; i<9; i++){
+         if(result[i]==-1){
+           printf("\nERRO NA MATRIZ %d",i);
+         }else if(result[i] ==1){
+             printf("\nACERTO NA MATRIZ %d",i);
+         }
+     }
+
+     for(int i =9; i<18; i++){
+           if(result[i]==-1){
+             printf("\nERRO NA LINHA  %d",i);
+           }
+       }
+  
+     for(int i =18; i<27; i++){
+           if(result[i]==-1){
+             printf("\nERRO NA COLUNA  %d",i);
+           }
+       }
+     return 0;
 }
