@@ -1,5 +1,5 @@
 # SISTEMAS-OPERACIONAIS
-PROJETO
+Projeto para estudo de Multithreading, processadores,mutex,semáforos e outras coisas dos sistemas operacionais.
 
 
 
